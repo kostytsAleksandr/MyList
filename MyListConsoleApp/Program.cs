@@ -1,12 +1,19 @@
-﻿using System;
-
-namespace MyListConsoleApp
+﻿namespace MyListConsoleApp
 {
-    class Program
+    using System;
+
+    /// <summary>
+    /// Class for starting program.
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Point inputs to program.
+        /// </summary>
+        /// <param name="args">params.</param>
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
         }
     }
 }
