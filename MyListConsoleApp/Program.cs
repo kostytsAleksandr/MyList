@@ -13,7 +13,22 @@
         /// <param name="args">params.</param>
         private static void Main(string[] args)
         {
+            MyList<int> list = new MyList<int>();
+            list.Add(7);
+            list.Add(77);
+            list.Add(75);
+            list.Add(72);
+            list.Add(17);
+            list.Add(77777);
+            list.Sort();
+            int[] arr = new int[4] { 23, 456, 765, 2 };
 
+            list.AddRange(arr);
+            list.Remove(23);
+            foreach (var item in list)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
     }
 }

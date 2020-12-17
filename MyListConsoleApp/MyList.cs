@@ -3,15 +3,17 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Text;
 
     /// <summary>
     /// My List.
     /// </summary>
     /// <typeparam name="T">Template.</typeparam>
-    public class MyList<T> : IList<T>
+    public class MyList<T> : IList<T>, IEnumerator
     {
         private T[] myList;
+        private int index;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MyList{T}"/> class.
@@ -31,7 +33,7 @@
             this.myList[0] = item;
         }
 
-        private void ArrayExpansion()
+        private T[] ArrayExpansion()
         {
             T[] tmpList = new T[this.Count * 2];
             for (int i = 0; i < this.Count; i++)
@@ -40,18 +42,23 @@
             }
 
             this.myList = tmpList;
+            return this.myList;
         }
 
         /// <summary>
         /// Gets or Sets by index.
         /// </summary>
         /// /// <param name="index">number of index.</param>
+#pragma warning disable SA1201 // Elements should appear in the correct order
         public T this[int index] { get => this.myList[index]; set => this.myList[index] = value; }
+#pragma warning restore SA1201 // Elements should appear in the correct order
 
         /// <summary>
         /// Gets Count of elements.
         /// </summary>
+#pragma warning disable SA1201 // Elements should appear in the correct order
         public int Count
+#pragma warning restore SA1201 // Elements should appear in the correct order
         {
             get
             {
@@ -78,17 +85,29 @@
         public bool IsReadOnly => false;
 
         /// <summary>
+        /// Gets Current item.
+        /// </summary>
+        public object Current
+        {
+            get
+            {
+                return this.index;
+            }
+        }
+
+        /// <summary>
         /// Add new element in collection.
         /// </summary>
         /// <param name="item">adding element.</param>
         public void Add(T item)
         {
+            this.index = this.Count;
             if (this.Count >= this.myList.Length)
             {
                 this.ArrayExpansion();
             }
 
-            this.myList[this.Count] = item;
+            this.myList[this.index] = item;
         }
 
         /// <summary>
@@ -169,7 +188,7 @@
         /// <inheritdoc/>
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            
         }
 
         /// <summary>
@@ -248,10 +267,37 @@
             }
         }
 
-        /// <inheritdoc/>
-        IEnumerator IEnumerable.GetEnumerator()
+        /// <summary>
+        /// Sorting.
+        /// </summary>
+        public void Sort()
         {
-            throw new NotImplementedException();
+            Array.Sort(this.myList);
+        }
+
+        /// <summary>
+        /// If Move Next.
+        /// </summary>
+        /// <returns>bool Move Next.</returns>
+        public bool MoveNext()
+        {
+            if (this.index < this.myList.Length - 1)
+            {
+                this.index++;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Resset index.
+        /// </summary>
+        public void Reset()
+        {
+            this.index = -1;
         }
     }
 }
