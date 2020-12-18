@@ -188,8 +188,8 @@
         /// <inheritdoc/>
         public IEnumerator<T> GetEnumerator()
         {
-            
-        }
+            return IEnumerator<T>;
+        }v
 
         /// <summary>
         /// Returns index of first found element.

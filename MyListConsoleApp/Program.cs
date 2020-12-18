@@ -25,9 +25,9 @@
 
             list.AddRange(arr);
             list.Remove(23);
-            foreach (var item in list)
+            for (int i = 0; i < list.Count; i++)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(list[i].ToString());
             }
         }
     }
