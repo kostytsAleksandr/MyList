@@ -91,7 +91,7 @@
         {
             get
             {
-                return this.index;
+                return this.myList[this.index];
             }
         }
 
